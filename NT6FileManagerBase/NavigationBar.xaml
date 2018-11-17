@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="NT6FileManagerBase.NavigationBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NT6FileManagerBase"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="800">
+    <ContentControl x:Name="NavigationBarGrid" Style="{DynamicResource NavigationBarBackgroundStyle}" DockPanel.Dock="Bottom">
+        <DockPanel>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                <StackPanel Style="{DynamicResource NavButtonsContainerStyle}" Orientation="Horizontal">
+                    <Button x:Name="NavBackButton" Style="{DynamicResource NavigationBackButtonStyle}" IsEnabled="False" Click="NavBackButton_Click"/>
+                    <!--IsEnabled="{TemplateBinding IsBackButtonEnabled}"-->
+                    <Button x:Name="NavForwardButton" Style="{DynamicResource NavigationForwardButtonStyle}" IsEnabled="False" Click="NavForwardButton_Click"/>
+                    <!--IsEnabled="{TemplateBinding IsForwardButtonEnabled}"-->
+                    <Button x:Name="NavHistoryButton" Style="{DynamicResource NavigationHistoryButtonStyle}" Click="NavHistoryButton_Click"/>
+                    <Button x:Name="NavUpButton" Style="{DynamicResource NavigationUpButtonStyle}" Click="NavUpButton_Click"/>
+                </StackPanel>
+            </StackPanel>
+            <TextBox x:Name="SearchTextBox" MinWidth="100" Style="{DynamicResource NavigationSearchBoxStyle}" DockPanel.Dock="Right">Search</TextBox>
+            <Grid>
+                <TextBox x:Name="AddressBox" Style="{DynamicResource NavigationAddressBoxStyle}" KeyDown="AddressBox_KeyDown"/>
+            </Grid>
+        </DockPanel>
+    </ContentControl>
+</UserControl>
