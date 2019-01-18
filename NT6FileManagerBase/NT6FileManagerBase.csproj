@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -51,8 +52,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WindowsSharp">
-      <HintPath>..\windows-sharp\WindowsSharp\bin\Debug\WindowsSharp.dll</HintPath>
+    <Reference Include="WindowsSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\windows-sharp\WindowsSharp\bin\Debug\WindowsSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +62,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="ClickToOpenBehavior.cs" />
     <Compile Include="FileManagerBase.xaml.cs">
       <DependentUpon>FileManagerBase.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -69,6 +72,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ItemContextMenuBehavior.cs" />
+    <Compile Include="ItemRenameBehavior.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>

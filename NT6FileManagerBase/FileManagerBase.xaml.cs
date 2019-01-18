@@ -57,6 +57,14 @@ namespace NT6FileManagerBase
 
         public static readonly DependencyProperty HistoryIndexProperty = DependencyProperty.Register("HistoryIndex", typeof(Int32), typeof(FileManagerBase), new PropertyMetadata(0, OnHistoryIndexPropertyChangedCallback));
 
+        public bool IsRenamingFiles
+        {
+            get => (bool)GetValue(IsRenamingFilesProperty);
+            set => SetValue(IsRenamingFilesProperty, value);
+        }
+
+        public static readonly DependencyProperty IsRenamingFilesProperty = DependencyProperty.Register("IsRenamingFiles", typeof(bool), typeof(FileManagerBase), new PropertyMetadata(false));
+
         static void OnHistoryIndexPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             FileManagerBase sender = (d as FileManagerBase);
@@ -180,6 +188,46 @@ namespace NT6FileManagerBase
             BindingOperations.SetBinding(this, FileManagerBase.ShowItemCheckboxesProperty, checkBoxBinding);
         }
 
+        public bool NavigateBack()
+        {
+            if (HistoryIndex > 0)
+            {
+                HistoryIndex--;
+                return true;
+            }
+            else return false;
+        }
+
+        public bool NavigateForward()
+        {
+            if (HistoryIndex < (HistoryList.Count - 1))
+            {
+                HistoryIndex++;
+                return true;
+            }
+            else return false;
+        }
+
+        public bool NavigateUp()
+        {
+            bool returnValue = false;
+            try
+            {
+                string path = Path.GetDirectoryName(CurrentPath);
+                if (Directory.Exists(path))
+                {
+                    Navigate(path);
+                    returnValue = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+
+            return returnValue;
+        }
+
         public void CopySelection()
         {
             Manager.Cut = false;
@@ -270,7 +318,7 @@ namespace NT6FileManagerBase
 
         public void RenameSelection()
         {
-
+            IsRenamingFiles = true;
         }
 
         public void CreateNewFolder()
@@ -320,6 +368,11 @@ namespace NT6FileManagerBase
 
         public void OpenSelection()
         {
+            OpenSelection(DiskItem.OpenVerbs.Normal);
+        }
+
+        public void OpenSelection(DiskItem.OpenVerbs verb)
+        {
             //var source = ((List<DiskItem>)CurrentDirectoryListView.ItemsSource);
             foreach (DiskItem i in CurrentDirectoryListView.SelectedItems)
             {
@@ -341,7 +394,7 @@ namespace NT6FileManagerBase
                     try
                     {
                         //Process.Start(path);
-                        i.Open();
+                        i.Open(verb);
                     }
                     catch (Exception ex)
                     {
@@ -686,6 +739,21 @@ namespace NT6FileManagerBase
         void PropertiesMenuItem_Click(object sender, RoutedEventArgs e)
         {
             ShowPropertiesForSelection();
+        }
+
+        private void CurrentDirectoryListView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                if (e.Key == Key.C)
+                    CopySelection();
+                else if (e.Key == Key.X)
+                    CutSelection();
+                else if (e.Key == Key.V)
+                    PasteCurrent();
+            }
+            else if (e.Key == Key.Delete)
+                DeleteSelection();
         }
     }
 }

@@ -52,9 +52,9 @@
                 </StackPanel>
             </Grid>
         </ContentControl>
-        <ListView x:Name="CurrentDirectoryListView" Style="{DynamicResource CurrentDirectoryListViewStyle}" x:FieldModifier="public" SelectionChanged="CurrentDirectoryListView_SelectionChanged">
+        <ListView x:Name="CurrentDirectoryListView" Style="{DynamicResource CurrentDirectoryListViewStyle}" x:FieldModifier="public" SelectionChanged="CurrentDirectoryListView_SelectionChanged" KeyDown="CurrentDirectoryListView_KeyDown">
             <ListView.Resources>
-                <ui:TouchableContextMenu x:Key="ItemContextMenu" Opened="TouchableContextMenu_Opened">
+                <ContextMenu x:Key="ItemContextMenu" Opened="TouchableContextMenu_Opened">
                     <MenuItem x:Name="OpenMenuItem" Header="Open" Click="OpenMenuItem_Click"/>
                     <!--Tag="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}}"-->
                     <MenuItem x:Name="RunAsAdminMenuItem" Header="Run as administrator" Click="RunAsAdminMenuItem_Click"/>
@@ -66,15 +66,15 @@
                     <MenuItem x:Name="RenameMenuItem" Header="Rename"/>
                     <Separator/>
                     <MenuItem x:Name="PropertiesMenuItem" Header="Properties" Click="PropertiesMenuItem_Click"/>
-                </ui:TouchableContextMenu>
+                </ContextMenu>
 
-                <Style TargetType="{x:Type ListViewItem}">
-                    <!--BasedOn="{StaticResource {x:Type ListViewItem}}"-->
+                <!--Style TargetType="{x:Type ListViewItem}">
+                    <!-BasedOn="{StaticResource {x:Type ListViewItem}}"->
                     <EventSetter Event="Control.MouseDoubleClick" Handler="CurrentDirectoryListView_Item_MouseDoubleClick"/>
-                    <!--EventSetter Event="Loaded" Handler="CurrentDirectoryListViewItem_Loaded"/-->
+                    <!-EventSetter Event="Loaded" Handler="CurrentDirectoryListViewItem_Loaded"/->
                     <Setter Property="ContextMenu" Value="{DynamicResource ItemContextMenu}"/>
                     <Setter Property="Template" Value="{DynamicResource CurrentDirectoryListViewItemControlTemplate}"/>
-                </Style>
+                </Style-->
             </ListView.Resources>
         </ListView>
     </DockPanel>
