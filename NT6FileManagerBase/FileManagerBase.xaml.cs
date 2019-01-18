@@ -528,7 +528,7 @@ namespace NT6FileManagerBase
         public void SetPanes(DiskItem item)
         {
             /*DetailsFileIconBorder.Background*/
-            Debug.WriteLine("ActualHeight: " + DetailsFileIconRectangle.ActualHeight.ToString());
+            //Debug.WriteLine("ActualHeight: " + DetailsFileIconRectangle.ActualHeight.ToString());
             double size = DetailsFileIconRectangle.ActualHeight;
             if (size <= 0)
                 size = 48;

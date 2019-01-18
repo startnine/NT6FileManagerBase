@@ -196,6 +196,27 @@ namespace NT6FileManagerBase
                 RenameTextBox.Visibility = Visibility.Visible;
         }
 
+        public MenuItem PropertiesMenuItem
+        {
+            get => (MenuItem)GetValue(PropertiesMenuItemProperty);
+            set => SetValue(PropertiesMenuItemProperty, value);
+        }
+
+        public static readonly DependencyProperty PropertiesMenuItemProperty =
+            DependencyProperty.Register("PropertiesMenuItem", typeof(MenuItem), typeof(ItemContextMenuBehavior), new PropertyMetadata(null, OnPropertiesMenuItemChangedCallback));
+
+        static void OnPropertiesMenuItemChangedCallback(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue != null)
+                (e.NewValue as MenuItem).Click += (sender as ItemContextMenuBehavior).PropertiesMenuItem_Click;
+        }
+
+        private void PropertiesMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            //Debug.WriteLine("Showing Properties for: " + TargetItem.ItemDisplayName);
+            ManagerBase.ShowPropertiesForSelection();
+        }
+
         ContextMenu _menu;
 
         protected override void OnAttached()
